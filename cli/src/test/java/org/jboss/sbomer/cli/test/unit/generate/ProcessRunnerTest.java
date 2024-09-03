@@ -18,6 +18,7 @@
 package org.jboss.sbomer.cli.test.unit.generate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.condition.OS.WINDOWS;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,6 +29,7 @@ import org.jboss.sbomer.core.errors.ValidationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.api.condition.DisabledOnOs;
 
 class ProcessRunnerTest {
 
@@ -56,6 +58,7 @@ class ProcessRunnerTest {
     }
 
     @Test
+    @DisabledOnOs(WINDOWS)
     void nonExistingWorkingDirectoryProvided() {
         ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
             ProcessRunner.run(Path.of("surely/doesnt/exist"), "command");

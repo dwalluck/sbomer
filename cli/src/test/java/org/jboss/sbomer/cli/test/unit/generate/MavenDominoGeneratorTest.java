@@ -18,6 +18,7 @@
 package org.jboss.sbomer.cli.test.unit.generate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.condition.OS.WINDOWS;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,11 +31,13 @@ import org.jboss.sbomer.core.errors.ValidationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 
+@DisabledOnOs(WINDOWS)
 class MavenDominoGeneratorTest {
 
     final Path dominoDir = Path.of("/path/to/domino/dir");

@@ -17,11 +17,14 @@
  */
 package org.jboss.sbomer.core.test.unit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.io.FileMatchers.aReadableFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.condition.OS.WINDOWS;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -52,6 +55,7 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
+import org.junit.jupiter.api.condition.DisabledOnOs;
 
 class SbomUtilsTest {
 
@@ -74,8 +78,11 @@ class SbomUtilsTest {
         }
 
         @Test
+        // @DisabledOnOs(WINDOWS)
         void shouldReadSbomFromString() throws Exception {
-            String bomStr = TestResources.asString(sbomPath("base.json"));
+            Path path = sbomPath("base.json");
+            assertThat(path.toFile(), aReadableFile());
+            String bomStr = TestResources.asString(path);
             Bom bom = SbomUtils.fromString(bomStr);
 
             assertEquals(39, bom.getComponents().size());

@@ -30,6 +30,7 @@ import org.jboss.sbomer.cli.test.utils.PncWireMock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.io.TempDir;
 
 import io.quarkus.test.common.WithTestResource;
@@ -38,6 +39,8 @@ import io.quarkus.test.junit.TestProfile;
 import io.quarkus.test.junit.main.LaunchResult;
 import io.quarkus.test.junit.main.QuarkusMainLauncher;
 import io.quarkus.test.junit.main.QuarkusMainTest;
+
+import static org.junit.jupiter.api.condition.OS.WINDOWS;
 
 @QuarkusMainTest
 @WithTestResource(PncWireMock.class)
@@ -56,16 +59,17 @@ class DefaultProcessCommandIT {
 
     @Test
     @DisplayName("Should successfully run default processor")
-    void testSuccessfulProcessing(QuarkusMainLauncher launcher, @TempDir Path tempDir) throws Exception {
-
+    // XXX: https://github.com/quarkusio/quarkus/issues/31765
+    @DisabledOnOs(WINDOWS)
+    void testSuccessfulProcessing(QuarkusMainLauncher launcher, @TempDir Path tempDir) {
         LaunchResult result = launcher.launch(
                 "-v",
                 "sbom",
                 "generate",
                 "--workdir",
-                tempDir.toAbsolutePath().toString() + "/project",
+                tempDir.toAbsolutePath() + "/project",
                 "--output",
-                tempDir.toAbsolutePath().toString() + "/bom.json",
+                tempDir.toAbsolutePath() + "/bom.json",
                 "--build-id",
                 "ARYT3LBXDVYAC",
                 "maven-cyclonedx",

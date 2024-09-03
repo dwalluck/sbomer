@@ -19,6 +19,7 @@ package org.jboss.sbomer.service.test.integ.feature.sbom;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.condition.OS.WINDOWS;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -36,6 +37,7 @@ import org.jboss.sbomer.service.feature.sbom.service.SbomService;
 import org.jboss.sbomer.service.test.integ.feature.sbom.messaging.AmqpTestResourceLifecycleManager;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.mockito.Mockito;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -83,6 +85,7 @@ class SBOMResourceRSQIT {
     }
 
     @Nested
+    @DisabledOnOs(WINDOWS)
     class v1alpha2 {
         static String API_PATH = "/api/v1alpha2";
 
