@@ -33,6 +33,7 @@
     <artifactId>jboss-parent</artifactId>
     <groupId>org.jboss</groupId>
     <version>46</version>
+    <relativePath/>
   </parent>
 
   <modules>
@@ -75,7 +76,7 @@
     <version.rsql-jpa>v2023.35.5</version.rsql-jpa>
     <version.commons-cli>1.9.0</version.commons-cli>
     <version.quarkus-test-artemis>3.1.2</version.quarkus-test-artemis>
-    <version.build-finder>2.3.0</version.build-finder>
+    <version.build-finder>2.4.3-SNAPSHOT</version.build-finder>
     <version.mapstruct>1.6.2</version.mapstruct>
     <version.jandex-maven-plugin>3.2.3</version.jandex-maven-plugin>
 
@@ -101,6 +102,58 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>jboss-public-repository</id>
+      <name>JBoss Public Maven Repository</name>
+      <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>jboss-snapshots-repository</id>
+      <name>JBoss Snapshots Maven Repository</name>
+      <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>jboss-public-repository</id>
+      <name>JBoss Public Maven Repository</name>
+      <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+      <layout>default</layout>
+    </pluginRepository>
+    <pluginRepository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>jboss-snapshots-repository</id>
+      <name>JBoss Snapshots Maven Repository</name>
+      <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+      <layout>default</layout>
+    </pluginRepository>
+  </pluginRepositories>
+
   <build>
     <pluginManagement>
       <plugins>
