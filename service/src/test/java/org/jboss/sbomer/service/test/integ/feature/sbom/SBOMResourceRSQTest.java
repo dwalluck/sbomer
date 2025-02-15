@@ -37,6 +37,8 @@ import org.jboss.sbomer.service.feature.sbom.service.SbomService;
 import org.jboss.sbomer.service.test.utils.umb.TestUmbProfile;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.mockito.Mockito;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -81,6 +83,9 @@ class SBOMResourceRSQTest {
         }
 
         @Nested
+        @DisabledOnOs(
+                value = OS.WINDOWS,
+                disabledReason = "java.nio.file.InvalidPathException: Illegal char <:> at index 23: v1alpha3/sboms/purl/pkg:maven/org.apache.logging.log4j/log4j@2.19.0.redhat-00001?type=pom/bom")
         class GetByPurl {
 
             static final String PURL = "pkg:maven/org.apache.logging.log4j/log4j@2.19.0.redhat-00001?type=pom";

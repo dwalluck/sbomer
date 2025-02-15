@@ -29,6 +29,8 @@ import org.jboss.sbomer.cli.feature.sbom.generate.MavenDominoGenerator;
 import org.jboss.sbomer.cli.feature.sbom.generate.ProcessRunner;
 import org.jboss.sbomer.core.errors.ValidationException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.io.TempDir;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
@@ -52,6 +54,7 @@ class MavenDominoGeneratorTest {
     }
 
     @Test
+    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "Hardcoded path separators")
     void testFailedWhenDominoDirDoesntExist(@TempDir Path projectDir) {
         ValidationException thrown = assertThrows(
                 ValidationException.class,
@@ -63,6 +66,7 @@ class MavenDominoGeneratorTest {
     }
 
     @Test
+    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "Hardcoded path separators")
     void testFailedWhenDominoDoesntExistForDefaultVersion(@TempDir Path projectDir, @TempDir Path wrongDir) {
         ValidationException thrown = assertThrows(
                 ValidationException.class,
@@ -76,6 +80,7 @@ class MavenDominoGeneratorTest {
     }
 
     @Test
+    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "Hardcoded path separators")
     void testFailedWhenDominoDirDoesntExistWithCustomVersion(@TempDir Path projectDir, @TempDir Path dominoDir) {
         ValidationException thrown = assertThrows(
                 ValidationException.class,
@@ -93,6 +98,7 @@ class MavenDominoGeneratorTest {
     }
 
     @Test
+    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "Hardcoded path separators")
     void testGenerate() {
         MavenDominoGenerator generator = MavenDominoGenerator.builder().withDominoDir(dominoDir).build();
 
@@ -117,6 +123,7 @@ class MavenDominoGeneratorTest {
     }
 
     @Test
+    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "Hardcoded path separators")
     void testGenerateWithSettingsXml() {
         var settingsXmlPath = Path.of("settings.xml");
 
@@ -148,6 +155,7 @@ class MavenDominoGeneratorTest {
     }
 
     @Test
+    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "Hardcoded path separators")
     void testGenerateWithCustomArgs() {
         MavenDominoGenerator generator = MavenDominoGenerator.builder().withDominoDir(dominoDir).build();
 
@@ -175,6 +183,7 @@ class MavenDominoGeneratorTest {
     }
 
     @Test
+    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "Hardcoded path separators")
     void testGenerateWithEmptyCustomArgs() {
         MavenDominoGenerator generator = MavenDominoGenerator.builder().withDominoDir(dominoDir).build();
 
