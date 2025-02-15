@@ -90,7 +90,7 @@ public class CommentAdvisoryOnRelevantEventsListener {
 
         if (event.getRequestEventId() != null) {
             // Advisories which produced request events which handled the manifestation.
-            // Standard advisories and text-only advisories with "deliverables" notes content fall in this category.
+            // Standard advisories and text-only advisories with "deliverables" note content fall in this category.
             handleAutomatedManifestationAdvisory(event, config);
         } else {
             // Advisories whose manifestation was handled autonomously.
@@ -132,7 +132,7 @@ public class CommentAdvisoryOnRelevantEventsListener {
                                 "\nFailed generations:\n"))
                 .append(generateRequestEventFinalSection(event.getRequestEventId()));
 
-        log.debug("Adding comment to advisoryId {} : '{}'", config.getAdvisoryId(), commentSb);
+        log.debug("Adding comment to automated advisory, id {}: '{}'", config.getAdvisoryId(), commentSb);
         doAddCommentToErratum(commentSb.toString(), config.getAdvisoryId());
     }
 
@@ -166,7 +166,7 @@ public class CommentAdvisoryOnRelevantEventsListener {
                                 SbomGenerationStatus.FAILED,
                                 "\nFailed generations:\n"));
 
-        log.debug("Adding comment to advisoryId {} : '{}'", config.getAdvisoryId(), commentSb);
+        log.debug("Adding comment to manual advisory, id {}: '{}'", config.getAdvisoryId(), commentSb);
         doAddCommentToErratum(commentSb.toString(), config.getAdvisoryId());
     }
 

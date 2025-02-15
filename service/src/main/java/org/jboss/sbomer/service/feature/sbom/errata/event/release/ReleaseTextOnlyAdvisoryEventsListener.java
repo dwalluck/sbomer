@@ -113,7 +113,7 @@ public class ReleaseTextOnlyAdvisoryEventsListener {
                         erratum.getDetails().get().getId());
 
                 // If the notes contain a "manifest" field, search the successful generations for all the purls listed
-                // (there are no generations associated to the requestevent because no generations were triggered)
+                // (there are no generations associated with the request event because no generations were triggered)
                 manifestsPurls = AdvisoryEventUtils.extractPurlUrisFromManifestNode(notes);
             } else {
                 log.debug(
@@ -149,13 +149,13 @@ public class ReleaseTextOnlyAdvisoryEventsListener {
                     productType);
         } catch (Exception e) {
             log.error(
-                    "An error occured during the creation of release manifests for event '{}'",
+                    "An error occurred during the creation of release manifests for event '{}'",
                     requestEvent.getId(),
                     e);
             markRequestFailed(
                     requestEvent,
                     event.getReleaseGenerations().values(),
-                    "An error occured during the creation of the release manifest");
+                    "An error occurred during the creation of the release manifest");
         }
 
         // Let's trigger the update of statuses and advisory comments
@@ -281,7 +281,7 @@ public class ReleaseTextOnlyAdvisoryEventsListener {
                 Map.of("repository_url", Constants.MRRC_URL),
                 !SbomUtils.hasProperty(manifestMainComponent, "deliverable-url"));
 
-        // Finally create the root component for this build (NVR) from the manifest
+        // Finally, create the root component for this build (NVR) from the manifest
         Component sbomRootComponent = SbomUtils.createComponent(manifestMainComponent);
 
         sbomRootComponent.setSupplier(manifestMainComponent.getSupplier());
@@ -327,7 +327,6 @@ public class ReleaseTextOnlyAdvisoryEventsListener {
                     erratum,
                     productName,
                     productVersion,
-                    toolVersion,
                     productVersionBom);
             releaseSbom.setReleaseMetadata(metadataNode);
             releaseSbom = sbomService.save(releaseSbom);
@@ -359,7 +358,6 @@ public class ReleaseTextOnlyAdvisoryEventsListener {
                         erratum,
                         productName,
                         productVersion,
-                        toolVersion,
                         manifestBom);
                 buildManifest.setReleaseMetadata(buildManifestMetadataNode);
             }
@@ -396,9 +394,7 @@ public class ReleaseTextOnlyAdvisoryEventsListener {
             Errata erratum,
             String product,
             String productVersion,
-            String toolVersion,
             Bom manifest) {
-
         ObjectNode releaseMetadata = ObjectMapperProvider.json().createObjectNode();
         releaseMetadata.put(REQUEST_ID, requestEventId);
         // FIXME: 'Optional.get()' without 'isPresent()' check

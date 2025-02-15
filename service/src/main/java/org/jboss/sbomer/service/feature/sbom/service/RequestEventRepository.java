@@ -276,10 +276,7 @@ public class RequestEventRepository extends CriteriaAwareRepository<RequestEvent
     }
 
     protected Instant convertFromTimestamp(Object rawTimeObject) {
-        if (rawTimeObject instanceof Timestamp) {
-            return ((Timestamp) rawTimeObject).toInstant();
-        }
-        return (Instant) rawTimeObject;
+        return rawTimeObject instanceof Timestamp timestamp ? timestamp.toInstant() : (Instant) rawTimeObject;
     }
 
     private String getValueOfField(Class<? extends RequestConfig> configClass, String fieldName) {

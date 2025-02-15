@@ -41,10 +41,10 @@ import jakarta.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CustomPredicateSortBuilder<T> {
+public class CustomPredicateSortBuilder {
 
     private CustomPredicateSortBuilder() {
-        // This is a utility class
+        throw new IllegalStateException("This is a utility class that should not be instantiated");
     }
 
     public static <T> Collection<Order> createExpression(
@@ -82,7 +82,7 @@ public class CustomPredicateSortBuilder<T> {
      * @param entity The main entity of the query.
      * @param entityManager JPA EntityManager.
      * @param misc Facade with all necessary tools for predicate creation.
-     * @return Order a order representation of the Node.
+     * @return Order an order representation of the Node.
      */
     public static <T> Collection<Order> createExpression(
             ComparisonNode comparison,

@@ -67,7 +67,7 @@ public class SyftImageApiV1Alpha3 {
 
     @POST
     @Consumes({ MediaType.APPLICATION_JSON, YAMLMediaTypes.APPLICATION_JACKSON_YAML })
-    @Operation(summary = "", description = "")
+    @Operation()
     @Path("/image/{name}")
     @APIResponse(
             responseCode = "202",

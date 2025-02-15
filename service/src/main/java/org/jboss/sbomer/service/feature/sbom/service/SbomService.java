@@ -20,7 +20,6 @@ package org.jboss.sbomer.service.feature.sbom.service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.pnc.dto.DeliverableAnalyzerOperation;
@@ -566,7 +565,7 @@ public class SbomService {
 
         // Filter the results and remove the current (IN_PROGRESS) requestId
         List<V1Beta1RequestRecord> allAdvisoryRequestRecordsFiltered = allAdvisoryRequestRecords.stream()
-                .filter(record -> !record.id().equals(ignoreRequestId))
+                .filter(requestRecord -> !requestRecord.id().equals(ignoreRequestId))
                 .toList();
         log.debug("Filtering found records to ignore current IN_PROGRESS event {}", ignoreRequestId);
 
