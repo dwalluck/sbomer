@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
 
+import com.github.packageurl.PackageURLBuilder;
 import org.cyclonedx.model.Bom;
 import org.cyclonedx.model.Component;
 import org.cyclonedx.model.Dependency;
@@ -368,41 +369,27 @@ public class SyftImageAdjuster extends AbstractAdjuster {
 
         tag = versionOpt.get().getValue() + "-" + releaseOpt.get().getValue();
 
-        String name = inspectData.labels.get("name");
-        String[] componentNameParts = mainComponent.getName().split("/");
-
-        if (name == null) {
-            if (componentNameParts.length > 1) {
-                name = mainComponent.getName().substring(mainComponent.getName().indexOf("/"));
-            }
-        }
-
-        // FIXME: This can be null here
-        String[] nameParts = name.split(("/"));
-
-        TreeMap<String, String> qualifiers = new TreeMap<>();
-        qualifiers.put("os", inspectData.getOs());
-        qualifiers.put("arch", inspectData.getArchitecture());
-        qualifiers.put("tag", tag);
-
-        PackageURL purl;
+        String nameLabel = inspectData.labels.get("name");
+        String name = nameLabel != null ? nameLabel
+                : mainComponent.getName().substring(mainComponent.getName().indexOf("/") + 1);
 
         try {
-            purl = new PackageURL(
-                    "oci",
-                    null,
-                    nameParts[nameParts.length - 1],
-                    inspectData.getDigest(),
-                    qualifiers,
-                    null);
+            PackageURL purl = PackageURLBuilder.aPackageURL()
+                    .withType("oci")
+                    .withName(name.substring(name.lastIndexOf("/") + 1))
+                    .withVersion(inspectData.getDigest())
+                    .withQualifier("os", inspectData.getOs())
+                    .withQualifier("arch", inspectData.getArchitecture())
+                    .withQualifier("tag", tag)
+                    .build();
+            log.debug("Generated purl: '{}'", purl);
+
+            mainComponent.setPurl(purl);
+            mainComponent.setName(name);
         } catch (MalformedPackageURLException e) {
             throw new ApplicationException("Cannot generate purl for container image", e);
         }
 
-        log.debug("Generated purl: '{}'", purl);
-
-        mainComponent.setPurl(purl);
-        mainComponent.setName(name);
     }
 
     /**
