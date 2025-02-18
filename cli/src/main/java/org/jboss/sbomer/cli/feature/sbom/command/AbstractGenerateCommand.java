@@ -122,6 +122,7 @@ public abstract class AbstractGenerateCommand implements Callable<Integer> {
         }
     }
 
+    // TODO: Refactor
     @Override
     public Integer call() {
         // Make sure there is no context

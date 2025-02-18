@@ -94,6 +94,7 @@ public class GenerateOperationConfigCommand implements Callable<Integer> {
      *
      * @return {@link OperationConfig} object if the configuration could be retrieved or {@code null} otherwise.
      */
+    // TODO: Refactor
     private OperationConfig mappingConfig(OperationConfig operationConfig) {
         log.debug("Attempting to fetch configuration from SBOMer internal mapping");
 

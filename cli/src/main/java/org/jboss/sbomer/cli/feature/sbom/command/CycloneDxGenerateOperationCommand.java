@@ -87,9 +87,9 @@ public class CycloneDxGenerateOperationCommand extends AbstractGenerateOperation
         return GeneratorType.CYCLONEDX_OPERATION;
     }
 
+    // TODO: Refactor
     @Override
     protected Path doGenerate() {
-
         OperationConfig config;
 
         try {

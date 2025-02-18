@@ -41,6 +41,7 @@ public class PurlSanitizer {
      * @param purl the original PURL string
      * @return sanitized PURL string
      */
+    // TODO: Refactor
     public static String sanitizePurl(String purl) {
         if (purl == null || purl.isEmpty()) {
             throw new IllegalArgumentException("PURL cannot be null or empty");

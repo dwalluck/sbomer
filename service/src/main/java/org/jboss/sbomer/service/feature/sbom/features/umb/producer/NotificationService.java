@@ -79,6 +79,7 @@ public class NotificationService {
     @Inject
     GenerationFinishedMessageBodyValidator validator;
 
+    // TODO: Refactor
     public void notifyCompleted(List<org.jboss.sbomer.service.feature.sbom.model.Sbom> sboms) {
         if (featureFlags.isDryRun()) {
             throw new FeatureDisabledException(

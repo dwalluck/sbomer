@@ -323,6 +323,7 @@ public class GenerateConfigCommand implements Callable<Integer> {
      *         that is not covered by more specific exit code, {@code 2} when a config validation failure occurred,
      *         {@code 3} when a base config could not be found
      */
+    // TODO: Refactor
     @Override
     public Integer call() throws Exception {
         // Make sure there is no context

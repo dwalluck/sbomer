@@ -41,6 +41,7 @@ public class CustomizedPredicateBuilderStrategy implements PredicateBuilderStrat
     public static final char ESCAPE_CHAR = '\\';
     public final static String WILDCARD_CHAR = "*";
 
+    // TODO: Refactor
     @Override
     public <T> Predicate createPredicate(
             Node node,

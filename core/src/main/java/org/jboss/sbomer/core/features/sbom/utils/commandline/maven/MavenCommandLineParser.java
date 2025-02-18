@@ -229,6 +229,7 @@ public class MavenCommandLineParser {
     /*
      * Enhance the getOptionProperties to concatenate all value tokens after the key token
      */
+    // TODO: Refactor
     private Properties getOptionPropertiesWithConcatenation(CommandLine cmd, String opt) {
         Properties props = new Properties();
 

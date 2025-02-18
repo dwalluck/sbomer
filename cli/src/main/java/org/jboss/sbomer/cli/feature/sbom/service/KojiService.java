@@ -113,6 +113,7 @@ public class KojiService {
      * @return the list of only the builds built in Brew
      * @throws KojiClientException Thrown in case of exceptions with Koji communication
      */
+    // TODO: Exception
     private List<KojiBuild> find(
             URL url,
             DistributionAnalyzerListener distributionAnalyzerListener,

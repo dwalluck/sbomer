@@ -90,6 +90,7 @@ public class GenerateOperationCommand implements Callable<Integer> {
      *         configuration file reading or parsing, {@code 3} when the index parameter is incorrect, {@code 4} when
      *         the generation process did not finish successfully
      */
+    // TODO: Refactor
     @Override
     public Integer call() {
 

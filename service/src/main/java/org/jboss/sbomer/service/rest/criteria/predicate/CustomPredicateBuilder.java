@@ -89,6 +89,7 @@ public class CustomPredicateBuilder<T> {
      * @param misc Facade with all necessary tools for predicate creation.
      * @return Predicate a predicate representation of the Node.
      */
+    // TODO: Refactor
     public static <T> Predicate createPredicate(
             ComparisonNode comparison,
             From startRoot,

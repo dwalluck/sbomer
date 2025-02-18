@@ -77,6 +77,7 @@ public class DefaultProcessor implements Processor {
      *
      * @param component the component to process
      */
+    // TODO: Refactor
     protected void processComponent(Component component) {
         log.debug("Processing '{}'...", component.getPurl());
 
@@ -223,6 +224,7 @@ public class DefaultProcessor implements Processor {
         }
     }
 
+    // TODO: Refactor
     @Override
     public Bom process(Bom bom) {
         // TODO: this should be moved to its own workflow

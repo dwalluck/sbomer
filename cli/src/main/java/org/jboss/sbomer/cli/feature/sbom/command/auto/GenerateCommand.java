@@ -85,8 +85,8 @@ public class GenerateCommand implements Callable<Integer> {
      *         the generation process did not finish successfully
      */
     @Override
+    // TODO: Refactor
     public Integer call() {
-
         if (configPath == null) {
             log.info("Configuration path is null, cannot do any generation.");
             return GenerationResult.ERR_CONFIG_MISSING.getCode();
