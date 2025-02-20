@@ -29,12 +29,15 @@ import org.jboss.sbomer.cli.feature.sbom.generate.MavenDominoGenerator;
 import org.jboss.sbomer.cli.feature.sbom.generate.ProcessRunner;
 import org.jboss.sbomer.core.errors.ValidationException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.io.TempDir;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 
+@DisabledOnOs(value = OS.WINDOWS, disabledReason = "Hard-coded file separators")
 class MavenDominoGeneratorTest {
 
     final Path dominoDir = Path.of("/path/to/domino/dir");
