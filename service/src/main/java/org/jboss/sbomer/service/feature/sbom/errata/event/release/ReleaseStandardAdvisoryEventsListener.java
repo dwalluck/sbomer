@@ -928,9 +928,9 @@ public class ReleaseStandardAdvisoryEventsListener {
             try {
                 PackageURL purl = new PackageURL(component.getPurl());
                 Map<String, String> qualifiers = purl.getQualifiers();
-                if (qualifiers != null && qualifiers.containsKey("arch")) {
+                if (qualifiers != null) {
                     String archValue = qualifiers.get("arch");
-                    if (!"src".equals(archValue)) {
+                    if (archValue != null && !"src".equals(archValue)) {
                         manifestArches.add(archValue);
                     }
                 }

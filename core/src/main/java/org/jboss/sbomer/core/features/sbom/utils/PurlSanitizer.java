@@ -54,7 +54,7 @@ public class PurlSanitizer {
             return parsedPurl.canonicalize();
         } catch (MalformedPackageURLException e) {
             // If parsing fails, proceed to manual sanitization
-            log.error("Malformed PURL detected, attempting to sanitize: {}", purl);
+            log.error("Malformed PURL detected, attempting to sanitize: {}", purl, e);
         }
 
         // Manually parse and sanitize the PURL components
@@ -163,7 +163,7 @@ public class PurlSanitizer {
         }
         TreeMap<String, String> sanitized = new TreeMap<>();
         for (Map.Entry<String, String> entry : qualifiers.entrySet()) {
-            String key = entry.getKey().replaceAll(NAME_VERSION_QKEY_QVALUE, "");
+            String key = entry.getKey().replaceAll(NAME_VERSION_QKEY_QVALUE, "-");
             String value = entry.getValue().replaceAll(NAME_VERSION_QKEY_QVALUE, "-");
             sanitized.put(key, value);
         }
