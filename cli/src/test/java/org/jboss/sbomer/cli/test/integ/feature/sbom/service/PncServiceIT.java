@@ -27,6 +27,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.jboss.pnc.api.deliverablesanalyzer.dto.LicenseInfo;
+import org.jboss.pnc.api.enums.LicenseSource;
 import org.jboss.pnc.dto.Artifact;
 import org.jboss.pnc.dto.DeliverableAnalyzerOperation;
 import org.jboss.pnc.dto.ProductMilestone;
@@ -147,5 +149,16 @@ class PncServiceIT {
         List<AnalyzedArtifact> artifacts = service.getAllAnalyzedArtifacts("A5RPHL7Y3AIAA");
         assertNotNull(artifacts);
         assertEquals(1, artifacts.size());
+        System.out.println("artifacts: " + artifacts);
+        AnalyzedArtifact artifact = artifacts.get(0);
+        assertEquals(1, artifact.getLicenses().size());
+        LicenseInfo license = artifact.getLicenses().iterator().next();
+        assertNotNull(license);
+        assertEquals("Public Domain", license.getName());
+        assertEquals("CC0-1.0", license.getSpdxLicenseId());
+        assertEquals("http://repository.jboss.org/licenses/cc0-1.0.txt", license.getUrl());
+        assertEquals("repo", license.getDistribution());
+        assertEquals(LicenseSource.POM, license.getSource());
+        assertNull(license.getComments());
     }
 }

@@ -80,10 +80,12 @@ import org.cyclonedx.model.Property;
 import org.cyclonedx.model.Tool;
 import org.cyclonedx.model.metadata.ToolInformation;
 import org.cyclonedx.parsers.JsonParser;
+import org.jboss.pnc.api.deliverablesanalyzer.dto.LicenseInfo;
 import org.jboss.pnc.common.Strings;
 import org.jboss.pnc.dto.Artifact;
 import org.jboss.pnc.dto.Build;
 import org.jboss.pnc.dto.DeliverableAnalyzerOperation;
+import org.jboss.pnc.dto.response.AnalyzedArtifact;
 import org.jboss.pnc.restclient.util.ArtifactUtil;
 import org.jboss.sbomer.core.features.sbom.Constants;
 import org.jboss.sbomer.core.features.sbom.config.Config;
@@ -324,8 +326,23 @@ public class SbomUtils {
                                 }));
     }
 
-    public static Component createComponent(Artifact artifact, Scope scope, Type type) {
+    public static Component createComponent(AnalyzedArtifact analyzedArtifact, Scope scope, Type type) {
+        Component component = createComponent(analyzedArtifact.getArtifact(), scope, type);
+        Map<String, List<LicenseInfo>> uniqueLicensesMap = analyzedArtifact.getLicenses()
+                .stream()
+                .collect(Collectors.groupingBy(LicenseInfo::getSpdxLicenseId));
+        uniqueLicensesMap.forEach((spdxLicenseId, uniqueLicenses) -> uniqueLicenses.stream().map(LicenseInfo::getUrl).sorted().distinct().forEach(url -> SbomUtils.addExternalReference(component, ExternalReference.Type.LICENSE, url, spdxLicenseId)));
+        LicenseChoice licenseChoice = new LicenseChoice();
+        licenseChoice.setLicenses(uniqueLicensesMap.keySet().stream().map(spdxLicenseId -> {
+            License license = new License();
+            license.setUrl(spdxLicenseId);
+            return license;
+        }).toList());
+        component.setLicenses(licenseChoice);
+        return component;
+    }
 
+    public static Component createComponent(Artifact artifact, Scope scope, Type type) {
         Component component = new Component();
         setCoordinates(component, artifact);
         component.setScope(scope);
