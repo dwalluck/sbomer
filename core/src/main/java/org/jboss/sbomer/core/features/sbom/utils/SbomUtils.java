@@ -83,6 +83,7 @@ import org.cyclonedx.model.Metadata;
 import org.cyclonedx.model.OrganizationalEntity;
 import org.cyclonedx.model.Pedigree;
 import org.cyclonedx.model.Property;
+import org.cyclonedx.model.Service;
 import org.cyclonedx.model.Tool;
 import org.cyclonedx.model.component.evidence.Identity;
 import org.cyclonedx.model.component.evidence.Identity.Field;
@@ -658,14 +659,21 @@ public class SbomUtils {
 
     public static ToolInformation createToolInformation(String version) {
         ToolInformation information = new ToolInformation();
-        Component toolComponent = new Component();
-        toolComponent.setName(SBOMER_NAME);
-        toolComponent.setType(Type.APPLICATION);
-        toolComponent.setAuthor(PUBLISHER);
+        Service service = new Service();
+        service.setName(SBOMER_NAME);
         if (version != null) {
-            toolComponent.setVersion(version);
+            service.setVersion(version);
         }
-        information.setComponents(List.of(toolComponent));
+        OrganizationalEntity provider = new OrganizationalEntity();
+        provider.setName(PUBLISHER);
+        provider.setUrls(List.of(SUPPLIER_URL));
+        service.setProvider(provider);
+        LicenseChoice licenseChoice = new LicenseChoice();
+        License license = new License();
+        license.setId(SBOMER_LICENSE_ID);
+        licenseChoice.setLicenses(List.of(license));
+        service.setLicenses(licenseChoice);
+        information.setServices(List.of(service));
         return information;
     }
 
