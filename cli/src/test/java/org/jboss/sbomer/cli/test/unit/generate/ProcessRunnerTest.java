@@ -28,6 +28,8 @@ import org.jboss.sbomer.cli.feature.sbom.generate.ProcessRunner;
 import org.jboss.sbomer.core.errors.ValidationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.io.TempDir;
 
 class ProcessRunnerTest {
@@ -54,6 +56,7 @@ class ProcessRunnerTest {
         assertEquals("No working directory provided", thrown.getErrors().get(0));
     }
 
+    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "Hard-coded file separators")
     @Test
     void nonExistingWorkingDirectoryProvided() {
         ValidationException thrown = Assertions.assertThrows(

@@ -42,6 +42,8 @@ import org.jboss.sbomer.service.test.integ.feature.s3.S3FeatureTest.S3ClientConf
 import org.jboss.sbomer.service.test.utils.umb.TestUmbProfile;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.io.TempDir;
 
 import io.fabric8.kubernetes.api.model.ObjectMeta;
@@ -95,6 +97,7 @@ class S3FeatureTest {
 
     }
 
+    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "Hard-coded file separators")
     @Test
     void testStoreFiles(@TempDir Path tempDir) throws IOException {
         when(featureFlags.s3Storage()).thenReturn(true);
