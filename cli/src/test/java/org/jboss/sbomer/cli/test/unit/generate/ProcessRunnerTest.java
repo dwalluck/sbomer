@@ -20,6 +20,7 @@ package org.jboss.sbomer.cli.test.unit.generate;
 import static org.jboss.sbomer.cli.feature.sbom.generate.ProcessRunner.VALIDATION_FAILED_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -62,7 +63,10 @@ class ProcessRunnerTest {
 
         assertEquals(VALIDATION_FAILED_MESSAGE, thrown.getLocalizedMessage());
         assertEquals(1, thrown.getErrors().size());
-        assertEquals("Provided working directory 'surely/doesnt/exist' does not exist", thrown.getErrors().get(0));
+        assertEquals(
+                "Provided working directory '" + "surely/doesnt/exist".replace('/', File.separatorChar)
+                        + "' does not exist",
+                thrown.getErrors().get(0));
     }
 
     @Test
